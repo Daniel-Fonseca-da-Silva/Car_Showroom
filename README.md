@@ -2,7 +2,7 @@
 
 ## Description
 
-Project to simulater a Car showroom to web or mobile plataform. 
+Project to simulate a Car showroom to web or mobile platform. 
 
 ## Used Tools 
 
