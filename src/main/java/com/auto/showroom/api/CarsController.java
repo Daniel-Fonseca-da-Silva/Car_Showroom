@@ -29,5 +29,11 @@ public class CarsController {
 
 		return service.getCarById(id);
 	}
+	
+	@GetMapping("/category/{category}")
+	public Iterable<Car> getCarById(@PathVariable("category") String category) {
+
+		return service.getCarByCategory(category);
+	}
 
 }

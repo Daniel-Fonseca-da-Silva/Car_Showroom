@@ -18,11 +18,10 @@ public class Car {
 		super();
 	}
 
-	public Car(Long id, String name, String category) {
+	public Car(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.category = category;
 	}
 
 	public Long getId() {
