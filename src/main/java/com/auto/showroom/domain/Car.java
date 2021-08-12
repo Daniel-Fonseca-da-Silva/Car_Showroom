@@ -1,10 +1,10 @@
 package com.auto.showroom.domain;
 
 public class Car {
-	
+
 	private Long id;
 	private String name;
-	
+
 	public Car() {
 		super();
 	}
@@ -30,5 +30,5 @@ public class Car {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }
