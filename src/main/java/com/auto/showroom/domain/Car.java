@@ -12,15 +12,17 @@ public class Car {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //AUTO_INCREMENT
 	private Long id;
 	private String name;
+	private String category;
 
 	public Car() {
 		super();
 	}
 
-	public Car(Long id, String name) {
+	public Car(Long id, String name, String category) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.category = category;
 	}
 
 	public Long getId() {
@@ -39,4 +41,12 @@ public class Car {
 		this.name = name;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 }
