@@ -34,4 +34,9 @@ public class CarService {
 		return cars;
 	}
 
+	public Iterable<Car> getCarByCategory(String category) {
+		
+		return repo.findByCategory(category);
+	}
+
 }
