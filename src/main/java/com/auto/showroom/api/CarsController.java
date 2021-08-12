@@ -1,7 +1,5 @@
 package com.auto.showroom.api;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +16,9 @@ public class CarsController {
 	private CarService service;
 
 	@GetMapping
-	public List<Car> getCar() {
+	public Iterable<Car> getCar() {
 
-		return service.getCar();
+		return service.getCars();
 	}
 
 }

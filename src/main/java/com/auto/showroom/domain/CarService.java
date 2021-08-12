@@ -3,12 +3,20 @@ package com.auto.showroom.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CarService {
+	
+	@Autowired
+	private CarRepository repo;
+	
+	public Iterable<Car> getCars() {
+		return repo.findAll();
+	}
 
-	public List<Car> getCar() {
+	public List<Car> getCarsFake() {
 
 		List<Car> cars = new ArrayList<>();
 
