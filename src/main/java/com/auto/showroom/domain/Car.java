@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Car {
 
 	@Id // This is the PRIMARY KEY
-	@GeneratedValue(strategy = GenerationType.AUTO) //AUTO_INCREMENT
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //AUTO_INCREMENT
 	private Long id;
 	private String name;
 
