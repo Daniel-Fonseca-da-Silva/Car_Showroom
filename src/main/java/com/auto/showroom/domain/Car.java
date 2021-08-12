@@ -1,7 +1,15 @@
 package com.auto.showroom.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Car {
 
+	@Id // This is the PRIMARY KEY
+	@GeneratedValue(strategy = GenerationType.AUTO) //AUTO_INCREMENT
 	private Long id;
 	private String name;
 
