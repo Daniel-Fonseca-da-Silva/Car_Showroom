@@ -3,6 +3,9 @@ package com.auto.showroom.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CarService {
 
 	public List<Car> getCar() {
