@@ -39,4 +39,9 @@ public class CarService {
 		return repo.findByCategory(category);
 	}
 
+	public Car save(Car car) {
+		
+		return repo.save(car);
+	}
+
 }
