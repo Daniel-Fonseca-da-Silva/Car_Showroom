@@ -39,7 +39,7 @@ public class CarService {
 		return repo.findByCategory(category);
 	}
 
-	public Car save(Car car) {
+	public Car insert(Car car) {
 		
 		return repo.save(car);
 	}
