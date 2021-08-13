@@ -6,20 +6,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 public class CarService {
-	
+
 	@Autowired
 	private CarRepository repo;
-	
-	public Iterable<Car> getCars() {
-		return repo.findAll();
-	}
-	
-	public Optional<Car> getCarById(Long id) {
-		return repo.findById(id);
-	}
 
 	public List<Car> getCarsFake() {
 
@@ -34,13 +27,22 @@ public class CarService {
 		return cars;
 	}
 
+	public Iterable<Car> getCars() {
+		return repo.findAll();
+	}
+
+	public Optional<Car> getCarById(Long id) {
+		return repo.findById(id);
+	}
+
 	public Iterable<Car> getCarByCategory(String category) {
-		
+
 		return repo.findByCategory(category);
 	}
 
 	public Car insert(Car car) {
-		
+		Assert.isNull(car.getId(), "Don't possible insert this registry");
+
 		return repo.save(car);
 	}
 
