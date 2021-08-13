@@ -46,7 +46,7 @@ public class CarsController {
 		return "Car saved: " + c.getId() + " with successfully";
 	}
 	
-	@PutMapping
+	@PutMapping("/{id}")
 	public String put(@PathVariable("id") Long id, @RequestBody Car car) {
 		Car c = service.update(car, id);
 		
