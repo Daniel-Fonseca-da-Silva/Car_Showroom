@@ -35,8 +35,9 @@ public class CarService {
 		return repo.findById(id);
 	}
 
-	public Iterable<Car> getCarByCategory(String category) {
-		return repo.findByCategory(category);
+	public List<Car> getCarByCategory(String category) {
+		 
+		 return repo.findByCategory(category);
 	}
 
 	public Car insert(Car car) {
@@ -51,9 +52,8 @@ public class CarService {
 		// Search the car inside Data Base
 		Optional<Car> optional = getCarById(id);
 
-		if (!optional.isPresent()) {
+		if (!optional.isPresent()) 
 			throw new RuntimeException("Don't possible updated this registry");
-		}
 
 		Car db = optional.get();
 		// Pass the properties
@@ -70,9 +70,9 @@ public class CarService {
 
 		Optional<Car> car = getCarById(id);
 
-		if (!car.isPresent()) {
+		if (!car.isPresent()) 
 			throw new RuntimeException("Don't possible delete this registry");
-		}
+		
 		repo.deleteById(id);
 	}
 

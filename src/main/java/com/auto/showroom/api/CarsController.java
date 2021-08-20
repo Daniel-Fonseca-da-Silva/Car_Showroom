@@ -1,5 +1,6 @@
 package com.auto.showroom.api;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,11 @@ public class CarsController {
 	}
 
 	@GetMapping("/category/{category}")
-	public Iterable<Car> getCarById(@PathVariable("category") String category) {
+	public ResponseEntity<List<Car>> getCarById(@PathVariable("category") String category) {
 
-		return service.getCarByCategory(category);
+		List<Car> cars = service.getCarByCategory(category); 
+		
+		return cars.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(cars);
 	}
 
 	@PostMapping
