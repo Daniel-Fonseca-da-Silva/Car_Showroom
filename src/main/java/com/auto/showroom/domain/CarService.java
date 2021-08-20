@@ -36,13 +36,11 @@ public class CarService {
 	}
 
 	public Iterable<Car> getCarByCategory(String category) {
-
 		return repo.findByCategory(category);
 	}
 
 	public Car insert(Car car) {
 		Assert.isNull(car.getId(), "Don't possible insert this registry");
-
 		return repo.save(car);
 	}
 
@@ -56,9 +54,8 @@ public class CarService {
 		if (!optional.isPresent()) {
 			throw new RuntimeException("Don't possible updated this registry");
 		}
-		
-		Car db = optional.get();
 
+		Car db = optional.get();
 		// Pass the properties
 		db.setName(car.getName());
 		db.setCategory(car.getCategory());
@@ -66,21 +63,17 @@ public class CarService {
 
 		// Save the car
 		repo.save(db);
-
 		return db;
-
 	}
 
 	public void delete(Long id) {
 
 		Optional<Car> car = getCarById(id);
 
-		if (car.isPresent()) {
-			repo.deleteById(id);
-		} else {
+		if (!car.isPresent()) {
 			throw new RuntimeException("Don't possible delete this registry");
 		}
-
+		repo.deleteById(id);
 	}
 
 }
