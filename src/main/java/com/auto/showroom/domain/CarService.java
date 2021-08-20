@@ -53,21 +53,21 @@ public class CarService {
 		// Search the car inside Data Base
 		Optional<Car> optional = getCarById(id);
 
-		if (optional.isPresent()) {
-			Car db = optional.get();
-
-			// Pass the properties
-			db.setName(car.getName());
-			db.setCategory(car.getCategory());
-			System.out.println("Car id: " + db.getId());
-
-			// Save the car
-			repo.save(db);
-
-			return db;
-		} else {
+		if (!optional.isPresent()) {
 			throw new RuntimeException("Don't possible updated this registry");
 		}
+		
+		Car db = optional.get();
+
+		// Pass the properties
+		db.setName(car.getName());
+		db.setCategory(car.getCategory());
+		System.out.println("Car id: " + db.getId());
+
+		// Save the car
+		repo.save(db);
+
+		return db;
 
 	}
 
@@ -77,8 +77,7 @@ public class CarService {
 
 		if (car.isPresent()) {
 			repo.deleteById(id);
-		}
-		else {
+		} else {
 			throw new RuntimeException("Don't possible delete this registry");
 		}
 
