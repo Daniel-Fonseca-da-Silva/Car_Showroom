@@ -3,6 +3,8 @@ package com.auto.showroom.api;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +25,9 @@ public class CarsController {
 	private CarService service;
 
 	@GetMapping
-	public Iterable<Car> getCar() {
-
-		return service.getCars();
+	public ResponseEntity<Iterable<Car>> getCar() {
+		return ResponseEntity.ok(service.getCars());
+//		return new ResponseEntity<>(service.getCars(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
