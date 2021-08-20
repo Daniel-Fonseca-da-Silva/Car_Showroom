@@ -47,28 +47,41 @@ public class CarService {
 	}
 
 	public Car update(Car car, Long id) {
-		
+
 		Assert.notNull(id, "Don't possible updated this registry");
-		
+
 		// Search the car inside Data Base
 		Optional<Car> optional = getCarById(id);
-		if(optional.isPresent()) {
+
+		if (optional.isPresent()) {
 			Car db = optional.get();
-			
+
 			// Pass the properties
 			db.setName(car.getName());
 			db.setCategory(car.getCategory());
 			System.out.println("Car id: " + db.getId());
-			
+
 			// Save the car
 			repo.save(db);
-			
+
 			return db;
-		}
-		else {
+		} else {
 			throw new RuntimeException("Don't possible updated this registry");
 		}
-		
+
+	}
+
+	public void delete(Long id) {
+
+		Optional<Car> car = getCarById(id);
+
+		if (car.isPresent()) {
+			repo.deleteById(id);
+		}
+		else {
+			throw new RuntimeException("Don't possible delete this registry");
+		}
+
 	}
 
 }
