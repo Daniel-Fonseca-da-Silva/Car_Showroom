@@ -3,7 +3,6 @@ package com.auto.showroom.api;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +19,7 @@ import com.auto.showroom.domain.CarService;
 @RestController
 @RequestMapping("/api/v1/cars")
 public class CarsController {
-	
+
 	@Autowired
 	private CarService service;
 
@@ -29,37 +28,48 @@ public class CarsController {
 		return ResponseEntity.ok(service.getCars());
 //		return new ResponseEntity<>(service.getCars(), HttpStatus.OK);
 	}
-	
-	@GetMapping("/{id}")
-	public Optional<Car> getCarById(@PathVariable("id") Long id) {
 
-		return service.getCarById(id);
+	@GetMapping("/{id}")
+	public ResponseEntity<Car> getCarById(@PathVariable("id") Long id) {
+
+		Optional<Car> car = service.getCarById(id);
+
+//		return car.map(ResponseEntity::ok)
+//		.orElse(ResponseEntity.notFound().build());
+
+		return !car.isPresent() ? ResponseEntity.notFound().build() : ResponseEntity.ok(car.get());
+
+//		if(!car.isPresent()) 
+//			return ResponseEntity.notFound().build();
+//		
+//		return ResponseEntity.ok(car.get());
+
 	}
-	
+
 	@GetMapping("/category/{category}")
 	public Iterable<Car> getCarById(@PathVariable("category") String category) {
-		
+
 		return service.getCarByCategory(category);
 	}
-	
+
 	@PostMapping
 	public String post(@RequestBody Car car) {
 		Car c = service.insert(car);
-		
+
 		return "Car saved: " + c.getId() + " with successfully";
 	}
-	
+
 	@PutMapping("/{id}")
 	public String put(@PathVariable("id") Long id, @RequestBody Car car) {
 		Car c = service.update(car, id);
-		
+
 		return "Car updated: " + c.getId() + " with successfully";
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable("id") Long id) {
 		service.delete(id);
-		
+
 		return "Car deleted with successfully";
 	}
 
