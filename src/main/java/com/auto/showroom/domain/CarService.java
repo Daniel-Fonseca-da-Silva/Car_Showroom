@@ -1,6 +1,5 @@
 package com.auto.showroom.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,19 +13,6 @@ public class CarService {
 	@Autowired
 	private CarRepository repo;
 
-	public List<Car> getCarsFake() {
-
-		List<Car> cars = new ArrayList<>();
-
-		cars.add(new Car(1L, "Graciela"));
-		cars.add(new Car(2L, "Justicialista"));
-		cars.add(new Car(3L, "Rastrojero"));
-		cars.add(new Car(4L, "Zunder 1500"));
-		cars.add(new Car(5L, "Ika Torino"));
-
-		return cars;
-	}
-
 	public Iterable<Car> getCars() {
 		return repo.findAll();
 	}
@@ -36,8 +22,8 @@ public class CarService {
 	}
 
 	public List<Car> getCarByCategory(String category) {
-		 
-		 return repo.findByCategory(category);
+
+		return repo.findByCategory(category);
 	}
 
 	public Car insert(Car car) {
@@ -52,7 +38,7 @@ public class CarService {
 		// Search the car inside Data Base
 		Optional<Car> optional = getCarById(id);
 
-		if (!optional.isPresent()) 
+		if (!optional.isPresent())
 			throw new RuntimeException("Don't possible updated this registry");
 
 		Car db = optional.get();
@@ -70,9 +56,9 @@ public class CarService {
 
 		Optional<Car> car = getCarById(id);
 
-		if (!car.isPresent()) 
+		if (!car.isPresent())
 			throw new RuntimeException("Don't possible delete this registry");
-		
+
 		repo.deleteById(id);
 	}
 

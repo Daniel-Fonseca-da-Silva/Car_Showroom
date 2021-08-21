@@ -50,8 +50,8 @@ public class CarsController {
 	@GetMapping("/category/{category}")
 	public ResponseEntity<List<Car>> getCarById(@PathVariable("category") String category) {
 
-		List<Car> cars = service.getCarByCategory(category); 
-		
+		List<Car> cars = service.getCarByCategory(category);
+
 		return cars.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(cars);
 	}
 

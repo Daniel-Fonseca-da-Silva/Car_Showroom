@@ -5,47 +5,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class Car {
 
 	@Id // This is the PRIMARY KEY
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //AUTO_INCREMENT
-	private Long id;
-	private String name;
-	private String category;
-
-	public Car() {
-		super();
-	}
-
-	public Car(Long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
+	private Long id = 0L;
+	private String name = "";
+	private String category = "";
 }
