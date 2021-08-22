@@ -7,7 +7,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 class CarShowroomApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void test1() {
+		
+	}
+	
+	@Test
+	public void test2() {
+		
 	}
 
 }
