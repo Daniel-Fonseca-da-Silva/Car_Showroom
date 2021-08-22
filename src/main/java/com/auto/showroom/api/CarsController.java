@@ -70,9 +70,8 @@ public class CarsController {
 	}
 
 	@DeleteMapping("/{id}")
-	public String delete(@PathVariable("id") Long id) {
-		service.delete(id);
-		return "Car deleted with successfully";
+	public ResponseEntity<CarDTO> delete(@PathVariable("id") Long id) {
+		return service.delete(id) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
 	}
 
 }

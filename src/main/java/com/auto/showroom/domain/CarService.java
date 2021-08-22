@@ -51,11 +51,12 @@ public class CarService {
 		return CarDTO.create(db);
 	}
 
-	public void delete(Long id) {
+	public boolean delete(Long id) {
 
 		if (!getCarById(id).isPresent())
-			throw new RuntimeException("Don't possible delete this registry");
+			return false;
 		repo.deleteById(id);
+		return true;
 	}
 
 }
