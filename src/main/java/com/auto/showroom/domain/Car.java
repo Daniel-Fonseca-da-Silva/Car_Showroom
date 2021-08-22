@@ -13,7 +13,7 @@ public class Car {
 
 	@Id // This is the PRIMARY KEY
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
-	private Long id = 0L;
-	private String name = "";
-	private String category = "";
+	private Long id;
+	private String name;
+	private String category;
 }

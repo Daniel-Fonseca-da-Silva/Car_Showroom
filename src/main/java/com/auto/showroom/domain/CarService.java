@@ -23,24 +23,41 @@ public class CarService {
 	public Optional<CarDTO> getCarById(Long id) {
 		return repo.findById(id).map(CarDTO::create);
 
-//		Optional<Car> car = repo.findById(id);
-//		if(!car.isPresent()) {
-//			return null;
-//		}
-//		return Optional.of(new CarDTO(car.get()));
+
 	}
 
 	public List<CarDTO> getCarByCategory(String category) {
 		return repo.findByCategory(category).stream().map(CarDTO::create).collect(Collectors.toList());
 	}
 
-	public Car insert(Car car) {
+	public CarDTO insert(Car car) {
 		Assert.isNull(car.getId(), "Don't possible insert this registry");
-		return repo.save(car);
+		return CarDTO.create(repo.save(car));
 	}
 
 	public Car update(Car car, Long id) {
-		return repo.save(car);
+
+		Assert.notNull(id, "Don't possible updated this registry");
+
+		// Search the car inside Data Base
+		Optional<Car> optional = repo.findById(id);
+
+		if (!optional.isPresent()) {
+			throw new RuntimeException("Don't possible updated this registry");
+		}
+		
+		Car db = optional.get();
+
+		// Pass the properties
+		db.setName(car.getName());
+		db.setCategory(car.getCategory());
+		System.out.println("Car id: " + db.getId());
+
+		// Save the car
+		repo.save(db);
+
+		return db;
+
 	}
 
 	public void delete(Long id) {

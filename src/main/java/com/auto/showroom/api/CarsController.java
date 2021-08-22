@@ -1,5 +1,6 @@
 package com.auto.showroom.api;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.auto.showroom.domain.Car;
 import com.auto.showroom.domain.CarService;
@@ -43,9 +45,18 @@ public class CarsController {
 	}
 
 	@PostMapping
-	public String post(@RequestBody Car car) {
-		Car c = service.insert(car);
-		return "Car saved: " + c.getId() + " with successfully";
+	public ResponseEntity<List<CarDTO>> post(@RequestBody Car car) {
+		try {
+			CarDTO c = service.insert(car);
+			URI location = getUri(c.getId());
+			return ResponseEntity.created(location).build();
+		} catch(Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	private URI getUri(Long id) {
+		return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
 	}
 
 	@PutMapping("/{id}")
