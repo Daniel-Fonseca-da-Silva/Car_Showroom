@@ -50,25 +50,28 @@ public class CarsController {
 			CarDTO c = service.insert(car);
 			URI location = getUri(c.getId());
 			return ResponseEntity.created(location).build();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-	
+
 	private URI getUri(Long id) {
 		return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
 	}
 
 	@PutMapping("/{id}")
-	public String put(@PathVariable("id") Long id, @RequestBody Car car) {
-		Car c = service.update(car, id);
-		return "Car updated: " + c.getId() + " with successfully";
+	public ResponseEntity<CarDTO> put(@PathVariable("id") Long id, @RequestBody Car car) {
+		try {
+			CarDTO c = service.update(car, id);
+			return c != null ? ResponseEntity.ok(c) : ResponseEntity.notFound().build();
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable("id") Long id) {
 		service.delete(id);
-
 		return "Car deleted with successfully";
 	}
 

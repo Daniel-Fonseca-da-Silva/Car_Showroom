@@ -22,8 +22,6 @@ public class CarService {
 
 	public Optional<CarDTO> getCarById(Long id) {
 		return repo.findById(id).map(CarDTO::create);
-
-
 	}
 
 	public List<CarDTO> getCarByCategory(String category) {
@@ -35,17 +33,12 @@ public class CarService {
 		return CarDTO.create(repo.save(car));
 	}
 
-	public Car update(Car car, Long id) {
+	public CarDTO update(Car car, Long id) {
 
 		Assert.notNull(id, "Don't possible updated this registry");
 
 		// Search the car inside Data Base
 		Optional<Car> optional = repo.findById(id);
-
-		if (!optional.isPresent()) {
-			throw new RuntimeException("Don't possible updated this registry");
-		}
-		
 		Car db = optional.get();
 
 		// Pass the properties
@@ -55,16 +48,13 @@ public class CarService {
 
 		// Save the car
 		repo.save(db);
-
-		return db;
-
+		return CarDTO.create(db);
 	}
 
 	public void delete(Long id) {
 
 		if (!getCarById(id).isPresent())
 			throw new RuntimeException("Don't possible delete this registry");
-
 		repo.deleteById(id);
 	}
 
