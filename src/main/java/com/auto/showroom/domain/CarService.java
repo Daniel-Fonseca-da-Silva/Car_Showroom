@@ -52,7 +52,6 @@ public class CarService {
 	}
 
 	public boolean delete(Long id) {
-
 		if (!getCarById(id).isPresent())
 			return false;
 		repo.deleteById(id);
