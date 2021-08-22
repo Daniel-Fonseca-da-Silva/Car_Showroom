@@ -1,5 +1,7 @@
 package com.auto.showroom.domain.dto;
 
+import org.modelmapper.ModelMapper;
+
 import com.auto.showroom.domain.Car;
 
 import lombok.Data;
@@ -11,10 +13,10 @@ public class CarDTO {
 	private String name = "";
 	private String category = "";
 	
-	public CarDTO(Car c) {
-		this.id = c.getId();
-		this.name = c.getName();
-		this.category = c.getCategory();
+	// Convert attributes if is the same of DTO
+	public static CarDTO create(Car c) {
+		ModelMapper modelMapper = new ModelMapper();
+		return modelMapper.map(c, CarDTO.class);
 	}
 	
 }

@@ -17,23 +17,21 @@ public class CarService {
 	private CarRepository repo;
 
 	public List<CarDTO> getCars() {
-
-		return repo.findAll().stream().map(CarDTO::new).collect(Collectors.toList());
-
-//		List<CarDTO> list = new ArrayList<>();
-//		for(Car c : cars) {
-//			list.add(new CarDTO(c));
-//		}
-//		return list;
+		return repo.findAll().stream().map(CarDTO::create).collect(Collectors.toList());
 	}
 
-	public Optional<Car> getCarById(Long id) {
-		return repo.findById(id);
+	public Optional<CarDTO> getCarById(Long id) {
+		return repo.findById(id).map(CarDTO::create);
+
+//		Optional<Car> car = repo.findById(id);
+//		if(!car.isPresent()) {
+//			return null;
+//		}
+//		return Optional.of(new CarDTO(car.get()));
 	}
 
 	public List<CarDTO> getCarByCategory(String category) {
-
-		return repo.findByCategory(category).stream().map(CarDTO::new).collect(Collectors.toList());
+		return repo.findByCategory(category).stream().map(CarDTO::create).collect(Collectors.toList());
 	}
 
 	public Car insert(Car car) {
@@ -42,31 +40,12 @@ public class CarService {
 	}
 
 	public Car update(Car car, Long id) {
-
-		Assert.notNull(id, "Don't possible updated this registry");
-
-		// Search the car inside Data Base
-		Optional<Car> optional = getCarById(id);
-
-		if (!optional.isPresent())
-			throw new RuntimeException("Don't possible updated this registry");
-
-		Car db = optional.get();
-		// Pass the properties
-		db.setName(car.getName());
-		db.setCategory(car.getCategory());
-		System.out.println("Car id: " + db.getId());
-
-		// Save the car
-		repo.save(db);
-		return db;
+		return repo.save(car);
 	}
 
 	public void delete(Long id) {
 
-		Optional<Car> car = getCarById(id);
-
-		if (!car.isPresent())
+		if (!getCarById(id).isPresent())
 			throw new RuntimeException("Don't possible delete this registry");
 
 		repo.deleteById(id);

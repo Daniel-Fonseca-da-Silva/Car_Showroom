@@ -31,8 +31,8 @@ public class CarsController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Car> getCarById(@PathVariable("id") Long id) {
-		Optional<Car> car = service.getCarById(id);
+	public ResponseEntity<CarDTO> getCarById(@PathVariable("id") Long id) {
+		Optional<CarDTO> car = service.getCarById(id);
 		return !car.isPresent() ? ResponseEntity.notFound().build() : ResponseEntity.ok(car.get());
 	}
 
