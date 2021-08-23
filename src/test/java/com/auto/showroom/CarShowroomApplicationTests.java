@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ class CarShowroomApplicationTests {
 	private CarService service;
 
 	@Test
-	void insert() {
+	void testInsert() {
 
 		Car car = new Car();
 		car.setName("Graciela");
@@ -52,8 +53,8 @@ class CarShowroomApplicationTests {
 	}
 
 	@Test
-	void test2() {
-
+	void testList() {
+		
 	}
 
 }
