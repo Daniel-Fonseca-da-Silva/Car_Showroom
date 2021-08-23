@@ -54,7 +54,8 @@ class CarShowroomApplicationTests {
 
 	@Test
 	void testList() {
-		
+		List<CarDTO> cars = service.getCars();
+		assertEquals(30, cars.size());
 	}
 
 }
