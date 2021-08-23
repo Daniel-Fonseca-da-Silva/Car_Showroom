@@ -15,5 +15,10 @@ public class Car {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
 	private Long id;
 	private String name;
+	private String description;
+	private String urlPhoto;
+	private String urlVideo;
+	private String latitude;
+	private String longitude;
 	private String category;
 }
