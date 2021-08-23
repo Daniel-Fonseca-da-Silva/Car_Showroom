@@ -57,5 +57,13 @@ class CarShowroomApplicationTests {
 		List<CarDTO> cars = service.getCars();
 		assertEquals(30, cars.size());
 	}
+	
+	@Test
+	void testGet() {
+		Optional<CarDTO> op = service.getCarById(11L);
+		assertTrue(op.isPresent());
+		CarDTO c = op.get();
+		assertEquals("Ferrari FF", c.getName());
+	}
 
 }
