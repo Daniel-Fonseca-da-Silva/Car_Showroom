@@ -20,7 +20,7 @@ import com.auto.showroom.domain.dto.CarDTO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class CarShowroomApplicationTests {
+class CarServiceTest {
 
 	@Autowired
 	private CarService service;
@@ -64,6 +64,14 @@ class CarShowroomApplicationTests {
 		assertTrue(op.isPresent());
 		CarDTO c = op.get();
 		assertEquals("Ferrari FF", c.getName());
+	}
+	
+	@Test
+	void testListCategory() {
+		assertEquals(10, service.getCarByCategory("classic").size());
+		assertEquals(10, service.getCarByCategory("sport").size());
+		assertEquals(10, service.getCarByCategory("luxury").size());
+		assertEquals(0, service.getCarByCategory("esporte").size());
 	}
 
 }

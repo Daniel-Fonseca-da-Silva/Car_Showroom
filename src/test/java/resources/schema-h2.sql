@@ -1,4 +1,4 @@
-CREATE TABLE car(id int auto_increment primary key,
+CREATE TABLE  car(id int auto_increment primary key,
     name VARCHAR(255),
     description VARCHAR(255),
     url_photo VARCHAR(255),
