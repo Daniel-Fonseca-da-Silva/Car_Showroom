@@ -51,11 +51,9 @@ public class CarService {
 		return CarDTO.create(db);
 	}
 
-	public boolean delete(Long id) {
-		if (!getCarById(id).isPresent())
-			return false;
+	public void delete(Long id) {
 		repo.deleteById(id);
-		return true;
+
 	}
 
 }
