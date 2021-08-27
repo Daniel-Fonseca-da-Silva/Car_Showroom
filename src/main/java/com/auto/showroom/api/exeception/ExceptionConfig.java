@@ -9,10 +9,15 @@ import com.auto.showroom.domain.dto.CarDTO;
 
 @RestControllerAdvice
 public class ExceptionConfig {
-	
+
 	@ExceptionHandler({ EmptyResultDataAccessException.class })
 	public ResponseEntity<CarDTO> errorNotFound(Exception e) {
 		return ResponseEntity.notFound().build();
 	}
 	
+	@ExceptionHandler( {IllegalArgumentException.class} )
+	public ResponseEntity<CarDTO> errorBadRequest(Exception e) {
+		return ResponseEntity.badRequest().build();
+	}
+
 }

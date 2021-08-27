@@ -19,9 +19,10 @@ public class CarService {
 	public List<CarDTO> getCars() {
 		return repo.findAll().stream().map(CarDTO::create).collect(Collectors.toList());
 	}
-
-	public Optional<CarDTO> getCarById(Long id) {
-		return repo.findById(id).map(CarDTO::create);
+	
+	public CarDTO getCarById(Long id) {
+		Optional<Car> car = repo.findById(id);
+		return car.map(CarDTO::create).orElseThrow(() -> new com.auto.showroom.api.exeception.ObjectNotFoundException("Don't possible to find this car")); 
 	}
 
 	public List<CarDTO> getCarByCategory(String category) {

@@ -2,7 +2,6 @@ package com.auto.showroom.api;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +33,8 @@ public class CarsController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<CarDTO> getCarById(@PathVariable("id") Long id) {
-		Optional<CarDTO> car = service.getCarById(id);
-		return !car.isPresent() ? ResponseEntity.notFound().build() : ResponseEntity.ok(car.get());
+		CarDTO car = service.getCarById(id);
+		return ResponseEntity.ok(car);
 	}
 
 	@GetMapping("/category/{category}")
@@ -46,13 +45,9 @@ public class CarsController {
 
 	@PostMapping
 	public ResponseEntity<List<CarDTO>> post(@RequestBody Car car) {
-		try {
-			CarDTO c = service.insert(car);
-			URI location = getUri(c.getId());
-			return ResponseEntity.created(location).build();
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().build();
-		}
+		CarDTO c = service.insert(car);
+		URI location = getUri(c.getId());
+		return ResponseEntity.created(location).build();
 	}
 
 	private URI getUri(Long id) {
@@ -72,7 +67,7 @@ public class CarsController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<CarDTO> delete(@PathVariable("id") Long id) {
 		service.delete(id);
-		return  ResponseEntity.ok().build();
+		return ResponseEntity.ok().build();
 	}
 
 }
