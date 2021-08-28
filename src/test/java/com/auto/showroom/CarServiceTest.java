@@ -2,11 +2,10 @@ package com.auto.showroom;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.auto.showroom.api.exeception.ObjectNotFoundException;
 import com.auto.showroom.domain.Car;
 import com.auto.showroom.domain.CarService;
 import com.auto.showroom.domain.dto.CarDTO;
@@ -38,10 +38,9 @@ class CarServiceTest {
 		assertNotNull(id);
 
 		// Search for the object
-		Optional<CarDTO> op = service.getCarById(id);
-		assertTrue(op.isPresent());
+		c = service.getCarById(id);
+		assertNotNull(c);
 
-		c = op.get();
 		assertEquals("Graciela", c.getName());
 		assertEquals("classic", c.getCategory());
 
@@ -49,7 +48,12 @@ class CarServiceTest {
 		service.delete(id);
 
 		// Verify if the object is deleted
-		assertFalse(service.getCarById(id).isPresent());
+		try {
+			assertNull(service.getCarById(id));
+			fail("Don't possible remove this car");
+		} catch(ObjectNotFoundException e ) {
+			// OK
+		}
 	}
 
 	@Test
@@ -57,15 +61,14 @@ class CarServiceTest {
 		List<CarDTO> cars = service.getCars();
 		assertEquals(30, cars.size());
 	}
-	
+
 	@Test
 	void testGet() {
-		Optional<CarDTO> op = service.getCarById(11L);
-		assertTrue(op.isPresent());
-		CarDTO c = op.get();
+		CarDTO c = service.getCarById(11L);
+		assertNotNull(c);
 		assertEquals("Ferrari FF", c.getName());
 	}
-	
+
 	@Test
 	void testListCategory() {
 		assertEquals(10, service.getCarByCategory("classic").size());
