@@ -1,7 +1,6 @@
 package com.auto.showroom.api.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (client == null) {
 			throw new UsernameNotFoundException("User not found");
 		}
-		return User.withUsername(username).password(client.getPassword()).roles("USER").build();
+		return client;
 	}
 }
