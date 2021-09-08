@@ -1,25 +1,28 @@
 package com.auto.showroom.api.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.auto.showroom.domain.Client;
+import com.auto.showroom.domain.ClientRepository;
 
 @Service(value = "userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+	@Autowired
+	private ClientRepository clientRepo;
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-		if (username.equals("user")) {
-			return User.withUsername(username).password(encoder.encode("user")).roles("USER").build();
-		} else if (username.equals("admin")) {
-			return User.withUsername(username).password(encoder.encode("admin")).roles("USER", "ADMIN").build();
+		Client client = clientRepo.findByLogin(username);
+		if (client == null) {
+			throw new UsernameNotFoundException("User not found");
 		}
-
-		throw new UsernameNotFoundException("User not found");
+		return User.withUsername(username).password(client.getPassword()).roles("USER").build();
 	}
 }

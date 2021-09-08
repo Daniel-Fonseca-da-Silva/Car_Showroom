@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class User {
+public class Client {
 	
 	@Id // This is the PRIMARY KEY
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
