@@ -23,7 +23,7 @@ import com.auto.showroom.domain.dto.CarDTO;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CarShowroomApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CarAPITest {
-	
+
 	@Autowired
 	protected TestRestTemplate rest;
 
@@ -32,12 +32,13 @@ public class CarAPITest {
 	private CarService service;
 
 	private ResponseEntity<CarDTO> getCar(String url) {
-		return rest.getForEntity(url, CarDTO.class);
+		return rest.withBasicAuth("user", "user").getForEntity(url, CarDTO.class);
 	}
 
 	private ResponseEntity<List<CarDTO>> getCars(String url) {
-		return rest.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<CarDTO>>() {
-		});
+		return rest.withBasicAuth("user", "user").exchange(url, HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<CarDTO>>() {
+				});
 	}
 
 	@Test
@@ -48,9 +49,9 @@ public class CarAPITest {
 		car.setCategory("esport");
 
 		// Insert
-		ResponseEntity<CarDTO> response = rest.postForEntity("/api/v1/cars", car, null);
+		ResponseEntity<CarDTO> response = rest.withBasicAuth("admin", "admin").postForEntity("/api/v1/cars", car, null);
 		System.out.println(response);
-		
+
 		// Verify if was create
 		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
@@ -63,7 +64,7 @@ public class CarAPITest {
 		assertEquals("esport", c.getCategory());
 
 		// Remove the object
-		rest.delete(location);
+		rest.withBasicAuth("user", "user").delete(location);
 
 		// Verify if was deleted
 		assertEquals(HttpStatus.NOT_FOUND, getCar(location).getStatusCode());
